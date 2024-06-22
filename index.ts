@@ -9,8 +9,6 @@ type Decision = {
     total_cost: number;
 }
   
-const capacity = 4;
-  
 const getTotalCost = (items:Item[]) => items.reduce((acc, cur) => acc + cur.cost, 0);
 
 const createKnapsackTable = (items_count: number, capacity: number):Item[][][] => new Array(items_count)
@@ -18,8 +16,13 @@ const createKnapsackTable = (items_count: number, capacity: number):Item[][][] =
     .map(() => new Array(capacity)
     .fill(null)
     .map(() => ([])));
+
+const EMPTY_RESULT:Decision = { items: [], total_cost: 0 };
   
 function resolveKnapsack(items:Item[], capacity:number):Decision {
+    if (!items.length || capacity < 1) {
+        return EMPTY_RESULT;
+    }
     const getLastMax = (i: number, j: number):Item[] | null => {
         if (i === 0) {
             // can not get last max result for the first item
@@ -33,7 +36,7 @@ function resolveKnapsack(items:Item[], capacity:number):Decision {
         if (!diff) {
             return [current_item];
         }
-        return [current_item, ...knapsack_table[i - 1][j - diff]];
+        return [current_item, ...knapsack_table[i - 1][diff - 1]];
     }
 
     const knapsack_table = createKnapsackTable(items.length, capacity);
@@ -84,5 +87,29 @@ const test1: Item[] = [
     { weight: 3, cost: 2000, name: 'ноутбук' },
 ];
 
-console.log(resolveKnapsack(test1, capacity));
+const test2: Item[] = [
+    { weight: 1, cost: 1500, name: 'мини-гитара' },
+    { weight: 4, cost: 3000, name: 'бензопила' },
+    { weight: 3, cost: 2000, name: 'ноутбук' },
+    { weight: 1, cost: 2000, name: 'айфон' },
+];
+
+const test3: Item[] = [
+    { weight: 4, cost: 3000, name: 'бензопила' },
+    { weight: 3, cost: 2000, name: 'ноутбук' },
+    { weight: 1, cost: 2000, name: 'айфон' },
+]
+
+const test4: Item[] = [
+    { weight: 4, cost: 3000, name: 'бензопила' },
+    { weight: 3, cost: 2000, name: 'ноутбук' },
+]
+
+console.log(resolveKnapsack(test1, 4));
+console.log(resolveKnapsack(test2, 4));
+console.log(resolveKnapsack(test2, 3));
+console.log(resolveKnapsack(test2, 1));
+console.log(resolveKnapsack(test2, 0));
+console.log(resolveKnapsack(test3, 2));
+console.log(resolveKnapsack(test4, 2));
   
