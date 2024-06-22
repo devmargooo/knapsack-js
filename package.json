@@ -1,0 +1,25 @@
+{
+  "name": "knapsack",
+  "version": "1.0.0",
+  "description": "Knapsack problem: js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devmargooo/knapsack-js.git"
+  },
+  "keywords": [
+    "knapsack"
+  ],
+  "author": "devmargooo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devmargooo/knapsack-js/issues"
+  },
+  "homepage": "https://github.com/devmargooo/knapsack-js#readme",
+  "devDependencies": {
+    "typescript": "^5.5.2"
+  }
+}
